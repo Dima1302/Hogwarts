@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @RestController
-@RequestMapping("faculty")
+@RequestMapping("/student")
 public class StudentController {
 
     private final StudentService studentService;
