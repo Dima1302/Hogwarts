@@ -32,8 +32,9 @@ public class StudentController {
 
     @PostMapping//POST http://localhost:8080/students
     public Student createStudent(@RequestBody Student student) {
-      return   studentService.createStudent(student);
+        return studentService.createStudent(student);
     }
+
     @PutMapping // PUT http://localhost:8080/students
     public ResponseEntity<Student> editStudent(@RequestBody Student student) {
         Student foundStudent = studentService.editStudent(student);
@@ -42,10 +43,11 @@ public class StudentController {
         }
         return ResponseEntity.ok(foundStudent);
     }
+
     @DeleteMapping("{id}")// DELETE http://localhost:8080/students//23
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
-         studentService.deleteStudent(id);
-         return ResponseEntity.ok().build();
+        studentService.deleteStudent(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
@@ -54,5 +56,13 @@ public class StudentController {
             return ResponseEntity.ok(studentService.findByAge(age));
         }
         return ResponseEntity.ok(Collections.emptyList());
+    }
+
+    @GetMapping("/by-age-between")
+    public ResponseEntity<Collection<Student>> findStudentsWithAgeBetween(@RequestParam(required = true) int min,
+                                                                          @RequestParam(required = true) int max) {
+
+        Collection<Student> students = studentService.findByAgeBetween(min, max);
+        return ResponseEntity.ok(students);
     }
 }
