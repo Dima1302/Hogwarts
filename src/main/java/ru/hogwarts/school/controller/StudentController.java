@@ -65,4 +65,10 @@ public class StudentController {
         Collection<Student> students = studentService.findByAgeBetween(min, max);
         return ResponseEntity.ok(students);
     }
+
+
+    @GetMapping("findFaculty")
+    public ResponseEntity findStudentFaculty(@RequestParam("idStudent") int idStudent) {
+        return ResponseEntity.ok(studentService.findByFaculty(idStudent));
+    }
 }

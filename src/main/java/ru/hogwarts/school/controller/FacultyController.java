@@ -62,6 +62,12 @@ public class FacultyController {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
+    @GetMapping("findStudent")
+    public ResponseEntity findFacultiesByStudent(@RequestParam("idFaculty") int idFaculty) {
+
+        return ResponseEntity.ok(facultyService.findByStudent(idFaculty));
+    }
+
 
 
 }
