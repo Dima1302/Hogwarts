@@ -16,8 +16,10 @@ import java.util.Objects;
 public class StudentService {
     private final StudentRepository studentRepository;
 
+
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
+
     }
 
 
@@ -51,6 +53,8 @@ public class StudentService {
     public Faculty findByFaculty(long idStudents) {
         return Objects.requireNonNull(studentRepository.findById(idStudents).orElse(null)).getFaculty();
     }
+
+
 }
 
 

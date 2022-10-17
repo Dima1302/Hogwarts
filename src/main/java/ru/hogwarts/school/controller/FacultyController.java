@@ -56,7 +56,7 @@ public class FacultyController {
     }
 
     @GetMapping("/{id}/students")
-    public ResponseEntity<Collection<Student>> findFacultiesByStudent(@RequestParam("idFaculty") int idFaculty) {
+    public ResponseEntity<Collection<Student>> findFacultiesByStudent(@PathVariable("id") int idFaculty) {
 
         return ResponseEntity.ok(facultyService.findByStudent(idFaculty));
     }
