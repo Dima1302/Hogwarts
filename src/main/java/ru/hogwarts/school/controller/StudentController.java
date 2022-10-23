@@ -7,8 +7,11 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -71,6 +74,22 @@ public class StudentController {
     @GetMapping("/{id}/faculty")
     public ResponseEntity<Faculty> findStudentFaculty(@PathVariable("id") int idStudent) {
         return ResponseEntity.ok(studentService.findByFaculty(idStudent));
+    }
+
+    @GetMapping("/totalCount")
+    public int totalCountOfStudents() {
+        return studentService.totalCountOfStudents();
+    }
+
+    @GetMapping("/averageAge")
+    public double averageAgeOfStudents() {
+        return studentService.averageAgeOfStudents();
+    }
+
+    @GetMapping("/lastStudents")
+    public ResponseEntity<Collection<Student>> lastStudents(@RequestParam @Min(1) @Max(10) int count ) {
+        Collection<Student> students = studentService.lastStudents(count);
+        return ResponseEntity.ok(students);
     }
 
 
