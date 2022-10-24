@@ -19,6 +19,6 @@ int totalCountOfStudents();
     @Query(value = "SELECT avg (age) FROM students",nativeQuery = true)
 double averageAgeOfStudents();
 
-    @Query(value = "SELECT  FROM students ORDER BY id DESC LIMIT : count",nativeQuery = true)
+    @Query(value = "SELECT * FROM students ORDER BY id DESC LIMIT :count",nativeQuery = true)
     List<Student> lastStudents(@Param("count")int count);
 }
