@@ -1,7 +1,6 @@
 CREATE TABLE cars (
     id BIGSERIAL PRIMARY KEY,
     brand VARCHAR(16)               NOT NULL ,
-    brand VARCHAR(32)               NOT NULL ,
     model VARCHAR(32)               NOT NULL ,
     price INTEGER CHECK ( cars.price > 0 )  NOT NULL
 );
