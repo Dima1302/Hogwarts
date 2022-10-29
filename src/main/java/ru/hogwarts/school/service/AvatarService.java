@@ -1,9 +1,12 @@
 package ru.hogwarts.school.service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ru.hogwarts.school.controller.InfoController;
 import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.AvatarRepository;
@@ -20,8 +23,13 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 @Service
 public class AvatarService {
-    @Value("${path.to.avatars.folder}")
+   private final static Logger logger = LoggerFactory.getLogger(AvatarService.class);
+
+
+    @Value("${path.avatars}")
     private String avatarsDir;
+
+
 
     private final StudentService studentService;
     private final AvatarRepository avatarRepository;
@@ -50,16 +58,21 @@ public class AvatarService {
         avatar.setMediaType(avatarFile.getContentType());
         avatar.setData(avatarFile.getBytes());
         avatarRepository.save(avatar);
+        logger.info("Was invoked method for upload avatar");
     }
 
     public Avatar findAvatar(Long studentId) {
+        logger.info("Was invoked method for find avatar");
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
     public String getExtensions(String fileName) {
+        logger.info("Was invoked method for get extensions");
         return fileName.substring(fileName.lastIndexOf(".") + 1);
+
     }
 
     public List<Avatar> findByPagination(int page, int size) {
+        logger.info("Was invoked method for find by pagination");
         PageRequest pageRequest = PageRequest.of(page - 1,size);
         return avatarRepository.findAll(pageRequest).getContent();
     }
