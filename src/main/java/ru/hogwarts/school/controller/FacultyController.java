@@ -61,6 +61,12 @@ public class FacultyController {
         return ResponseEntity.ok(facultyService.findByStudent(idFaculty));
     }
 
+    @GetMapping("/findFacultyNameWithMaxLength")
+    public ResponseEntity<ResponseEntity<String>> findFacultyNameWithTheMaxLength() {
+       return ResponseEntity.ok(facultyService.findFacultyNameWithTheMaxLength());
+    }
+
+
 
 
 }

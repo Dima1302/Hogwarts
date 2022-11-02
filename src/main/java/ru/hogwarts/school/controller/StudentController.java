@@ -12,7 +12,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+
 @Validated
 @RestController
 @RequestMapping("/student")
@@ -63,7 +63,7 @@ public class StudentController {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
-    @GetMapping(params = {"min","max"})
+    @GetMapping(params = {"min", "max"})
     public ResponseEntity<Collection<Student>> findStudentsWithAgeBetween(@RequestParam int min,
                                                                           @RequestParam int max) {
 
@@ -88,11 +88,20 @@ public class StudentController {
     }
 
     @GetMapping("/lastStudents")
-    public ResponseEntity<Collection<Student>> lastStudents(@RequestParam @Min(1) @Max(10) int count ) {
+    public ResponseEntity<Collection<Student>> lastStudents(@RequestParam @Min(1) @Max(10) int count) {
         Collection<Student> students = studentService.lastStudents(count);
         return ResponseEntity.ok(students);
     }
 
+    @GetMapping("/findStudentsByName")
+    public ResponseEntity<Collection<String>> findStudentsByName() {
+        return ResponseEntity.ok(studentService.findByName());
+    }
+
+    @GetMapping("/allStudentsAverageAge")
+    public double getAllStudentAvgAge() {
+        return studentService.getAllStudentAvgAge();
+    }
 
 
 }

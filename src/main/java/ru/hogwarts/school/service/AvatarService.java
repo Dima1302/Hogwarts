@@ -2,18 +2,15 @@ package ru.hogwarts.school.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.hogwarts.school.controller.InfoController;
 import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.AvatarRepository;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,7 +20,7 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 @Service
 public class AvatarService {
-   private final static Logger logger = LoggerFactory.getLogger(AvatarService.class);
+   private final static Logger LOGGER = LoggerFactory.getLogger(AvatarService.class);
 
 
     @Value("${path.avatars}")
@@ -58,21 +55,21 @@ public class AvatarService {
         avatar.setMediaType(avatarFile.getContentType());
         avatar.setData(avatarFile.getBytes());
         avatarRepository.save(avatar);
-        logger.info("Was invoked method for upload avatar");
+        LOGGER.info("Was invoked method for upload avatar");
     }
 
     public Avatar findAvatar(Long studentId) {
-        logger.info("Was invoked method for find avatar");
+        LOGGER.info("Was invoked method for find avatar");
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
     public String getExtensions(String fileName) {
-        logger.info("Was invoked method for get extensions");
+        LOGGER.info("Was invoked method for get extensions");
         return fileName.substring(fileName.lastIndexOf(".") + 1);
 
     }
 
     public List<Avatar> findByPagination(int page, int size) {
-        logger.info("Was invoked method for find by pagination");
+        LOGGER.info("Was invoked method for find by pagination");
         PageRequest pageRequest = PageRequest.of(page - 1,size);
         return avatarRepository.findAll(pageRequest).getContent();
     }
