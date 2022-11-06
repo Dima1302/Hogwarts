@@ -3,6 +3,7 @@ package ru.hogwarts.school.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
@@ -10,6 +11,7 @@ import ru.hogwarts.school.repository.StudentRepository;
 
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -94,6 +96,39 @@ public class StudentService {
         LOGGER.info("Was invoked method to get all student's average age");
         return studentRepository.findAll().
                 stream().mapToInt(Student::getAge).average().orElse(0);
+    }
+
+
+    public void printStudentsName() {
+        LOGGER.info("Was invoked method to print all student's name");
+        List<Student> students = studentRepository.findAll(PageRequest.of(0, 6)).getContent();
+        printStudentsName(students.subList(0, 2));
+
+        new Thread(() -> printStudentsName(students.subList(2, 4))).start();
+        new Thread(() -> printStudentsName(students.subList(4, 6))).start();
+
+    }
+
+    private void printStudentsName(List<Student> students) {
+        for (Student student : students) {
+            LOGGER.info(student.getName());
+        }
+
+    }
+
+    private synchronized void printSyncStudentsName(List<Student> students) {
+        for (Student student : students) {
+            LOGGER.info(student.getName());
+        }
+    }
+
+    public void printSyncStudentsName() {
+        LOGGER.info("Was invoked method to print  all synchronized student's name");
+        List<Student> students = studentRepository.findAll(PageRequest.of(0, 6)).getContent();
+        printStudentsName(students.subList(0, 2));
+
+        new Thread(() -> printSyncStudentsName(students.subList(2, 4))).start();
+        new Thread(() -> printSyncStudentsName(students.subList(4, 6))).start();
     }
 
 

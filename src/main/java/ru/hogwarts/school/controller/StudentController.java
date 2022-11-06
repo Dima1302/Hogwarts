@@ -104,5 +104,14 @@ public class StudentController {
     }
 
 
+    @GetMapping("/printStudents")
+    public void printStudents() {
+        studentService.printStudentsName();
+    }
+
+    @GetMapping("/printStudentsSync")
+    public void printStudentsSync() {
+        studentService.printSyncStudentsName();
+    }
 }
 
