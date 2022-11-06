@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/myDatabase
+    username: student
+    password: chocolatefrog
+  jpa:
+    hibernate:
+      ddl-auto: update
+  liquibase:
+    change-log: classpath:liquibase/changelog-master.yml
+
+path:
+  avatars: /avatars
+server:
+  port: 8080
+
+
+

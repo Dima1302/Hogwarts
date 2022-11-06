@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "application.avatar.store",
+      "type": "java.lang.String",
+      "description": "Description for application.avatar.store."
+  }
+] }
